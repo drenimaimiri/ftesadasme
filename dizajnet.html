@@ -379,6 +379,46 @@
       }
     }
 
+    .cta-section {
+      background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%);
+      padding: 4rem 1.5rem;
+      text-align: center;
+      color: #fff;
+    }
+
+    .cta-section h2 {
+      font-family: "Playfair Display", Georgia, serif;
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-weight: 600;
+      margin-bottom: 1rem;
+    }
+
+    .cta-section p {
+      font-size: clamp(1rem, 2vw, 1.25rem);
+      opacity: 0.9;
+      max-width: 36ch;
+      margin: 0 auto 2rem;
+      line-height: 1.5;
+    }
+
+    .cta-btn {
+      display: inline-block;
+      background: #fff;
+      color: var(--gold-dark);
+      font-family: "Playfair Display", Georgia, serif;
+      font-weight: 600;
+      font-size: 1.15rem;
+      padding: 0.9rem 2.8rem;
+      border-radius: 9999px;
+      text-decoration: none;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .cta-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+    }
+
     .site-footer {
       border-top: 1px solid var(--border);
       background: var(--nav-bg);
@@ -539,6 +579,12 @@
     </div>
 
   </div>
+
+  <section class="cta-section">
+    <h2>Gati p&euml;r t&euml; personalizuar ftes&euml;n t&euml;nde?</h2>
+    <p>Na kontaktoni dhe ne do t&euml; krijojm&euml; ftes&euml;n perfekte p&euml;r dit&euml;n t&euml;nde speciale.</p>
+    <a href="index.html" class="cta-btn">Na Kontakto</a>
+  </section>
 
   <footer class="site-footer">
     <div class="footer-inner">
