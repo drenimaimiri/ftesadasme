@@ -106,13 +106,36 @@
       transition: background-color 0.2s ease, color 0.2s ease;
     }
 
-    .nav-links a:hover,
-    .nav-links a.active {
-      background-color: var(--pill);
-      color: var(--gold-dark);
-    }
+      .nav-links a:hover,
+      .nav-links a.active {
+        background-color: var(--pill);
+        color: var(--gold-dark);
+      }
 
-    .theme-toggle {
+      .hamburger {
+        display: none;
+        flex-direction: column;
+        gap: 5px;
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 4px;
+      }
+
+      .hamburger span {
+        display: block;
+        width: 26px;
+        height: 2.5px;
+        background: var(--gold-dark);
+        border-radius: 2px;
+        transition: transform 0.2s ease, opacity 0.2s ease;
+      }
+
+      .hamburger.open span:nth-child(1) { transform: rotate(45deg) translate(5px, 6px); }
+      .hamburger.open span:nth-child(2) { opacity: 0; }
+      .hamburger.open span:nth-child(3) { transform: rotate(-45deg) translate(5px, -6px); }
+
+      .theme-toggle {
       background: none;
       border: 2px solid var(--gold);
       color: var(--gold);
@@ -261,6 +284,44 @@
       }
     }
 
+    @media (max-width: 768px) {
+      .hamburger {
+        display: flex;
+        margin-left: auto;
+      }
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: calc(100% + 0.5rem);
+        right: 1rem;
+        z-index: 100;
+        flex-direction: column;
+        background: var(--nav-bg);
+        backdrop-filter: blur(12px);
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        padding: 0.75rem;
+        gap: 0.25rem;
+        min-width: 180px;
+        box-shadow: 0 16px 40px rgba(0,0,0,0.1);
+      }
+      .nav-links.open {
+        display: flex;
+      }
+      .nav-links a {
+        padding: 0.6rem 1.2rem;
+        font-size: 1.05rem;
+        width: 100%;
+        text-align: center;
+      }
+      .theme-toggle {
+        width: 40px;
+        height: 40px;
+        font-size: 1.1rem;
+        margin: 0.25rem auto 0;
+      }
+    }
+
     @media (max-width: 640px) {
       .navbar {
         padding: 1rem 1rem;
@@ -271,18 +332,6 @@
       }
       .brand-name {
         font-size: 1.8rem;
-      }
-      .nav-links {
-        gap: 0.25rem;
-      }
-      .nav-links a {
-        padding: 0.5rem 1rem;
-        font-size: 1rem;
-      }
-      .theme-toggle {
-        width: 40px;
-        height: 40px;
-        font-size: 1.1rem;
       }
       .page-title {
         padding: 2.5rem 1rem 1.5rem;
@@ -322,14 +371,9 @@
     }
 
     @media (max-width: 480px) {
-      .navbar {
-        flex-wrap: wrap;
-        gap: 0.5rem;
-        justify-content: center;
-      }
-      .nav-links a {
-        padding: 0.4rem 0.8rem;
-        font-size: 0.9rem;
+      .brand svg {
+        width: 28px;
+        height: 28px;
       }
       .theme-toggle {
         width: 36px;
@@ -337,7 +381,7 @@
         font-size: 1rem;
       }
       .brand-name {
-        font-size: 1.5rem;
+        font-size: 1.4rem;
       }
       .page-title {
         padding: 2rem 1rem 1rem;
@@ -509,8 +553,11 @@
       </svg>
       <a href="index.html" class="brand-name" style="text-decoration: none;">FtesaDasme</a>
     </div>
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
     <nav>
-      <ul class="nav-links">
+      <ul class="nav-links" id="navLinks">
         <li><a href="index.html">Ballina</a></li>
         <li><a href="dizajnet.html" class="active">Dizajnet</a></li>
         <li><button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">🌙</button></li>
@@ -611,6 +658,19 @@
   </footer>
 
   <script>
+    const hamburger = document.getElementById('hamburger');
+    const navLinks = document.getElementById('navLinks');
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('open');
+      navLinks.classList.toggle('open');
+    });
+    document.addEventListener('click', (e) => {
+      if (!hamburger.contains(e.target) && !navLinks.contains(e.target)) {
+        hamburger.classList.remove('open');
+        navLinks.classList.remove('open');
+      }
+    });
+
     document.querySelectorAll('.card').forEach(card => {
       card.addEventListener('click', function () {
         const wasSelected = this.classList.contains('selected');
